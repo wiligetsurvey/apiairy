@@ -1,0 +1,104 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# wiligetsurvey 
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+## Coupon [/coupons/{id}]
+A coupon contains information about a percent-off or amount-off discount you
+might want to apply to a customer.
+
++ Parameters
+    + id (string)
+
+        The ID of the desired coupon.
+
++ Attributes (object)
+    + id: 250FF (string, required)
+    + created: 1415203908 (number) - Time stamp
+    + percent_off: 25 (number)
+
+        A positive integer between 1 and 100 that represents the discount the coupon will apply.
+
+    + redeem_by (number) - Date after which the coupon can no longer be redeemed
+
+
+
+### Retrieve a Coupon [GET]
+Retrieves the coupon with the given ID.
+
++ Response 200 (application/json)
+    + Attributes (Coupon)
+    
+### List All Questions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
